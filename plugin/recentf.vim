@@ -74,5 +74,3 @@ augroup recentf
 augroup END
 
 command! -nargs=0 Recentf call s:recentf()
-
-nnoremap <Plug>(Recentf) :Recentf<CR>
