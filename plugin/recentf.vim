@@ -26,9 +26,14 @@ endfunction
 
 function! s:filter(_, val)
   let fname = expand(a:val, !g:recentf_use_wildignore)
+  if empty(fname)
+    return v:false
+  endif
+
   if !filereadable(fname) && g:recentf_ignore_unreadable
     return v:false
   endif
+
   for filt in g:recentf_blacklist
     if fname =~# filt
       return v:false
