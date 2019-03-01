@@ -1,0 +1,33 @@
+*recentf.txt*  Recent file viewer for Vim
+
+Author:  Greg Anders <greg@gpanders.com>
+Repo:    https://github.com/gpanders/vim-recentf
+License: Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+INTRODUCTION                                             *recentf* *:Recentf*
+
+Vim provides a built-in method for viewing your recent file history with the
+|:oldfiles| command. This plugin seeks to complement and improve the built-in
+command by listing recent files in a separate, navigable buffer, allowing
+filtering of files in the recent files list, and keeping the oldfiles list
+up-to-date during your Vim session.
+
+To view your recent files, simply use
+>
+        :Recentf
+<
+The Recent Files buffer is just a plain old Vim buffer that you can |:sort|,
+filter, search, and modify as you like. Modifying this buffer will not change
+the |v:oldfiles| variable that recentf uses.
+
+==============================================================================
+MAPPINGS                                                   *recentf-mappings*
+
+Buffer-local ~
+    q           Close the buffer.
+    <CR>        Open file at cursor.
+    gr          Reload the buffer (removes any changes you've made).
+
+ vim:tw=78:ts=8:et:ft=help:norl:
