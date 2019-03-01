@@ -1,7 +1,7 @@
 " recentf.vim
-" Populate the output of :oldfiles into the quickfix list
+" Populate the output of :oldfiles into a separate buffer
 " Author: Greg Anders <greg@gpanders.com>
-" Date: 2019-02-28
+" License: Same as vim itself
 
 if exists('g:loaded_recentf')
   finish
