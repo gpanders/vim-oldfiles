@@ -62,7 +62,7 @@ function! s:recentf()
   10wincmd _
   nnoremap <silent> <buffer> <CR> gf<C-W>o
   nnoremap <silent> <buffer> q <C-W>q
-  nnoremap <silent> <buffer> gr :<C-U>call <SID>refresh()<CR>
+  nnoremap <silent> <buffer> R :<C-U>call <SID>refresh()<CR>
   put =recentf
   1delete_
   execute 'silent file Recent Files'

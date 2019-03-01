@@ -33,7 +33,7 @@ files list.
 ## Usage
 
 Use `:Recentf` to view your recent files in a new buffer. Press `Enter` on a
-file name to visit that file, `gr` to reload the buffer, and `q` to close the
+file name to visit that file, `R` to reload the buffer, and `q` to close the
 buffer.
 
 Other than the mappings listed above, the Recentf buffer is just a normal Vim

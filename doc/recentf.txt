@@ -26,7 +26,7 @@ MAPPINGS                                                   *recentf-mappings*
 Buffer-local ~
     q           Close the buffer
     <CR>        Open file at cursor
-    gr          Reload the buffer (removes any changes you've made)
+    R           Reload the buffer (removes any changes you've made)
 
 ==============================================================================
 SETTINGS                                                   *recentf-settings*
