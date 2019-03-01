@@ -47,7 +47,7 @@ Copy the `plugin` and `doc` directories into your Vim runtime folder (`$HOME/.vi
 
 ### Pathogen
 
-```vim
+```shell
 cd ~/.vim/bundle
 git clone https://github.com/gpanders/vim-recent.git
 ```
