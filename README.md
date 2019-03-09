@@ -1,4 +1,4 @@
-# recentf.vim
+# oldfiles.vim
 
 Improve Vim's native recent file history.
 
@@ -16,44 +16,46 @@ oldfiles`. Unfortunately, `:oldfiles` has a few drawbacks:
    `:wviminfo` and `:rviminfo` commands, but this is cumbersome and not very
    intuitive.
 
-Recentf seeks to utilize Vim's native capability but make it slightly better.
-The command `:Recentf` uses `v:oldfiles` under the hood, but presents a list of
-your recently visited files in a separate buffer. You can search, sort, filter,
-and modify this buffer however you want, and simply press Enter on a filename to
-go to that file.
+This plugin seeks to utilize Vim's native capability but make it slightly
+better.  The command `:Oldfiles` uses `v:oldfiles` under the hood, but presents
+a list of your recently visited files in a separate buffer. You can search,
+sort, filter, and modify this buffer however you want, and simply press Enter on
+a filename to go to that file.
 
-Recentf also allows you to filter the output of `:oldfiles`. For example, you
-can filter out Vim help docs, Git commit message files, or anything else that
-you don't want to populate the recent files list.
+Oldfiles.vim also allows you to filter the output of `:oldfiles`. For example,
+you can filter out Vim help docs, Git commit message files, or anything else
+that you don't want to populate the recent files list.
 
-Most importantly, Recentf keeps the `v:oldfiles` variable up to date as you use
-Vim, so when you open a new buffer you will see it at the top of your recent
+Most importantly, Oldfiles.vim keeps the `v:oldfiles` variable up to date as you
+use Vim, so when you open a new buffer you will see it at the top of your recent
 files list.
 
 ## Usage
 
-Use `:Recentf` to view your recent files in a new buffer. Press `Enter` on a
+Use `:Oldfiles` to view your recent files in a new buffer. Press `Enter` on a
 file name to visit that file, `R` to reload the buffer, and `q` to close the
 buffer.
 
-Other than the mappings listed above, the Recentf buffer is just a normal Vim
+Other than the mappings listed above, the Oldfiles buffer is just a normal Vim
 buffer, so all other Vim commands work as expected.
 
 ## Installation
 
 ### Manual
 
-Copy the `plugin` and `doc` directories into your Vim runtime folder (`$HOME/.vim` on macOS/Unix, `$HOME/vimfiles` on Windows) and run `:helptags ALL` to generate help tags. Use `:help recentf` to view the help docs.
+Copy the `plugin` and `doc` directories into your Vim runtime folder
+(`$HOME/.vim` on macOS/Unix, `$HOME/vimfiles` on Windows) and run `:helptags
+ALL` to generate help tags. Use `:help recentf` to view the help docs.
 
 ### Pathogen
 
 ```shell
 cd ~/.vim/bundle
-git clone https://github.com/gpanders/vim-recent.git
+git clone https://github.com/gpanders/vim-oldfiles.git
 ```
 
 ### vim-plug
 
 ```vim
-Plug 'gpanders/vim-recentf'
+Plug 'gpanders/vim-oldfiles'
 ```
