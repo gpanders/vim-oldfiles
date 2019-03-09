@@ -45,7 +45,7 @@ buffer, so all other Vim commands work as expected.
 
 Copy the `plugin` and `doc` directories into your Vim runtime folder
 (`$HOME/.vim` on macOS/Unix, `$HOME/vimfiles` on Windows) and run `:helptags
-ALL` to generate help tags. Use `:help recentf` to view the help docs.
+ALL` to generate help tags. Use `:help :Oldfiles` to view the help docs.
 
 ### Pathogen
 
