@@ -20,7 +20,7 @@ function! s:filter(_, val)
   endif
 
   for filt in g:oldfiles_blacklist
-    if fname =~# filt
+    if fname =~ filt
       return v:false
     endif
   endfor
@@ -29,14 +29,13 @@ endfunction
 
 function! oldfiles#open(bang, ...)
   let oldfiles = copy(v:oldfiles)
-
-  if !a:bang
-    let oldfiles = filter(oldfiles, function('s:filter'))
-  endif
-
   if a:0 > 0
     let pattern = a:1
-    let oldfiles = filter(oldfiles, { _, val -> val =~# pattern })
+    let oldfiles = filter(oldfiles, a:bang ?
+          \ { _, val -> val !~ pattern } :
+          \ { _, val -> val =~ pattern })
+  elseif !a:bang
+    let oldfiles = filter(oldfiles, function('s:filter'))
   endif
 
   call map(oldfiles, { _, f -> fnamemodify(expand(f), ':~') })

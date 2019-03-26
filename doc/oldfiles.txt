@@ -19,14 +19,19 @@ the |v:oldfiles| variable.
 							   *:Oldfiles*
 :Oldfiles[!]
 			Show the oldfiles buffer, filtered according to the
-			active |oldfiles-settings|. With [!], no filtering is
+			active |oldfiles-settings|. With [!] no filtering is
 			applied.
 
 :Oldfiles[!] {pattern}
-			Show the oldfiles buffer, filtered according to the
-			active |oldfiles-settings| as well as according to
-			{pattern}. With [!], filters from |oldfiles-settings|
-			are ignored and only {pattern} is used.
+			Show oldfiles matching {pattern}. With [!] invert
+			the match, showing only oldfiles that DO NOT match
+			{pattern}.
+			'ignorecase' applies. To overrule it put |/\c| in the
+			pattern to ignore case or |/\C| to match case.
+			'smartcase' is not used.
+
+			Note: When you supply a pattern, the filters in
+			|oldfiles-settings| are NOT applied.
 
 ==============================================================================
 MAPPINGS					   *oldfiles-mappings*
@@ -53,6 +58,10 @@ g:oldfiles_blacklist		list (default [])
 			      \ '/\.git/.\+'
 			      \ ]
 <
+		Note: The 'ignorecase' setting applies to the patterns in
+		|g:oldfiles_blacklist|. To overrule this setting for a
+		particular pattern, you can use |/\c| to ignore case or |/\C|
+		to match case.
 
 					*g:oldfiles_ignore_unreadable*
 g:oldfiles_ignore_unreadable	boolean (default 1)
