@@ -24,53 +24,9 @@ function! s:update()
   call insert(v:oldfiles, fname)
 endfunction
 
-function! s:filter(_, val)
-  let fname = expand(a:val, !g:oldfiles_use_wildignore)
-  if empty(fname)
-    return v:false
-  endif
-
-  if !filereadable(fname) && g:oldfiles_ignore_unreadable
-    return v:false
-  endif
-
-  for filt in g:oldfiles_blacklist
-    if fname =~# filt
-      return v:false
-    endif
-  endfor
-  return v:true
-endfunction
-
-function! <SID>refresh()
-  let l = getline('.')
-  let c = col('.')
-  %delete_
-  put =b:oldfiles
-  1delete_
-  normal! gg0
-  call search(escape('^' . l . '$', '.~'), 'c', '$')
-  execute 'normal! ' . c . '|'
-endfunction
-
-function! s:oldfiles()
-  let oldfiles = filter(copy(v:oldfiles), function('s:filter'))
-  call map(oldfiles, { _, f -> fnamemodify(expand(f), ':~') })
-  new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-  let b:oldfiles = oldfiles
-  10wincmd _
-  nnoremap <silent> <buffer> <CR> gf<C-W>o
-  nnoremap <silent> <buffer> q <C-W>q
-  nnoremap <silent> <buffer> R :<C-U>call <SID>refresh()<CR>
-  put =oldfiles
-  1delete_
-  execute 'silent file Oldfiles'
-endfunction
-
 augroup oldfiles.vim
   autocmd!
   autocmd BufRead * call s:update()
 augroup END
 
-command! -nargs=0 Oldfiles call s:oldfiles()
+command! -nargs=? -bang Oldfiles call oldfiles#open(<bang>0, <f-args>)

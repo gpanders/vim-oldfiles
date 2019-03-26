@@ -36,8 +36,13 @@ Use `:Oldfiles` to view your recent files in a new buffer. Press `Enter` on a
 file name to visit that file, `R` to reload the buffer, and `q` to close the
 buffer.
 
+You can also use `:Oldfiles {pattern}` to only show files matching that
+pattern.
+
 Other than the mappings listed above, the Oldfiles buffer is just a normal Vim
 buffer, so all other Vim commands work as expected.
+
+See `:h oldfiles` for more information.
 
 ## Installation
 

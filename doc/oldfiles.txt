@@ -4,7 +4,7 @@ Author:  Greg Anders <greg@gpanders.com>
 Repo:    https://github.com/gpanders/vim-oldfiles
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION							   *:Oldfiles*
+INTRODUCTION						    *oldfiles*
 
 Vim provides a built-in method for viewing your recent file history with the
 |:oldfiles| command. This plugin seeks to complement and improve the built-in
@@ -12,16 +12,24 @@ command by listing recent files in a separate, navigable buffer, allowing
 filtering of files in the oldfiles list, and keeping the oldfiles list
 up-to-date during your Vim session.
 
-To view your oldfiles, simply use
->
-        :Oldfiles
-<
 The Oldfiles buffer is just a plain old Vim buffer that you can |:sort|,
 filter, search, and modify as you like. Modifying this buffer will not change
 the |v:oldfiles| variable.
 
+							   *:Oldfiles*
+:Oldfiles[!]
+			Show the oldfiles buffer, filtered according to the
+			active |oldfiles-settings|. With [!], no filtering is
+			applied.
+
+:Oldfiles[!] {pattern}
+			Show the oldfiles buffer, filtered according to the
+			active |oldfiles-settings| as well as according to
+			{pattern}. With [!], filters from |oldfiles-settings|
+			are ignored and only {pattern} is used.
+
 ==============================================================================
-MAPPINGS						   *oldfiles-mappings*
+MAPPINGS					   *oldfiles-mappings*
 
 Buffer-local ~
     q           Close the buffer
@@ -29,7 +37,7 @@ Buffer-local ~
     R           Reload the buffer (removes any changes you've made)
 
 ==============================================================================
-SETTINGS						   *oldfiles-settings*
+SETTINGS					   *oldfiles-settings*
 
 						*g:oldfiles_blacklist*
 g:oldfiles_blacklist		list (default [])
@@ -46,12 +54,12 @@ g:oldfiles_blacklist		list (default [])
 			      \ ]
 <
 
-						*g:oldfiles_ignore_unreadable*
+					*g:oldfiles_ignore_unreadable*
 g:oldfiles_ignore_unreadable	boolean (default 1)
 		If |TRUE|, filter entries from the oldfiles list for which
 		|filereadable()| returns |FALSE|.
 
-						   *g:oldfiles_use_wildignore*
+					   *g:oldfiles_use_wildignore*
 g:oldfiles_use_wildignore	boolean (default 1)
 		If |TRUE|, files matching patterns in 'wildignore' will be
 		filtered from the oldfiles list.
