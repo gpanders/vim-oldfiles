@@ -28,9 +28,9 @@ function! s:filter(_, val)
 endfunction
 
 function! oldfiles#open(bang, ...)
-  let oldfiles = copy(v:oldfiles)
+  let oldfiles = map(copy(v:oldfiles), { _, f -> fnamemodify(expand(f), ':~') })
   if a:0 > 0
-    let pattern = a:1
+    let pattern = escape(a:1, '~')
     let oldfiles = filter(oldfiles, a:bang ?
           \ { _, val -> val !~ pattern } :
           \ { _, val -> val =~ pattern })
@@ -38,7 +38,6 @@ function! oldfiles#open(bang, ...)
     let oldfiles = filter(oldfiles, function('s:filter'))
   endif
 
-  call map(oldfiles, { _, f -> fnamemodify(expand(f), ':~') })
   let winnum = bufwinnr('Oldfiles')
   if winnum != -1
     " Buffer already exists
