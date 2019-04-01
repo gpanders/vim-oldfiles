@@ -45,7 +45,7 @@ function! oldfiles#open(bang, ...)
     let bufinfo = bufinfo[0]
     if !bufinfo.hidden && !empty(bufinfo.windows)
       let winnum = win_id2win(bufinfo.windows[0])
-      execute winnum 'wincmd w'
+      execute winnum . 'wincmd w'
     else
       execute 'botright sb ' . bufinfo.bufnr . ' | resize 10'
     endif
@@ -53,15 +53,15 @@ function! oldfiles#open(bang, ...)
   else
     " Buffer does not exist, create it
     botright new
-    setlocal buftype=nofile bufhidden=hide nobuflisted noswapfile
-    nnoremap <silent> <buffer> <CR> gf<C-W>o:let @# = expand('#2')<CR>
-    nnoremap <silent> <buffer> q <C-W>q
-    nnoremap <silent> <buffer> R :<C-U>call <SID>refresh()<CR>
+    setlocal cursorline buftype=nofile bufhidden=hide nobuflisted noswapfile
+    nnoremap <buffer> <silent> <CR> gf<C-W>o:let @# = expand('#1')<CR>
+    nnoremap <buffer> <silent> R :<C-U>call <SID>refresh()<CR>
+    nnoremap <buffer> q <C-W>q
     autocmd WinLeave <buffer> hide
     10wincmd _
     execute 'silent file Oldfiles'
   endif
   let b:oldfiles = oldfiles
   put =oldfiles
-  1delete_
+  0delete_
 endfunction
