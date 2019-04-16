@@ -24,33 +24,37 @@ a filename to go to that file.
 
 Oldfiles.vim also allows you to filter the output of `:oldfiles`. For example,
 you can filter out Vim help docs, Git commit message files, or anything else
-that you don't want to populate the recent files list.
+that you don't want to see in the oldfiles list.
 
 Most importantly, Oldfiles.vim keeps the `v:oldfiles` variable up to date as you
-use Vim, so when you open a new buffer you will see it at the top of your recent
-files list.
+use Vim, so when you open a new buffer you will see it at the top of the
+oldfiles list.
 
 ## Usage
 
-Use `:Oldfiles` to view your recent files in a new buffer. Press `Enter` on a
-file name to visit that file, `R` to reload the buffer, and `q` to close the
-buffer.
+Use `go` in Normal mode or `:Oldfiles` to view your recent files in a new
+buffer. Press `Enter` on a file name to visit that file, `R` to reload the
+buffer, and `q` to close the buffer.
 
 You can also use `:Oldfiles {pattern}` to only show files matching that
+pattern, or `:Oldfiles! {pattern}` to only show files that do not match that
 pattern.
 
 Other than the mappings listed above, the Oldfiles buffer is just a normal Vim
 buffer, so all other Vim commands work as expected.
 
-See `:h oldfiles` for more information.
+See `:h Oldfiles` for more information.
 
 ## Installation
 
 ### Manual
 
-Copy the `plugin` and `doc` directories into your Vim runtime folder
+If your version of Vim supports packages (`has('packages')` returns `1`), simply
+clone this repository to `~/.vim/pack/gpanders/start/vim-oldfiles`.
+
+Otherwise, copy the `plugin` and `doc` directories into your Vim runtime folder
 (`$HOME/.vim` on macOS/Unix, `$HOME/vimfiles` on Windows) and run `:helptags
-ALL` to generate help tags. Use `:help :Oldfiles` to view the help docs.
+ALL` to generate help tags. Use `:help Oldfiles` to view the help docs.
 
 ### Pathogen
 

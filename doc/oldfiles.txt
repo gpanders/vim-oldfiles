@@ -4,7 +4,7 @@ Author:  Greg Anders <greg@gpanders.com>
 Repo:    https://github.com/gpanders/vim-oldfiles
 License: Same terms as Vim itself (see |license|)
 
-INTRODUCTION						    *oldfiles*
+INTRODUCTION						    *Oldfiles*
 
 Vim provides a built-in method for viewing your recent file history with the
 |:oldfiles| command. This plugin seeks to complement and improve the built-in
@@ -36,6 +36,10 @@ the |v:oldfiles| variable.
 ==============================================================================
 MAPPINGS					   *oldfiles-mappings*
 
+Global ~
+    <Plug>(Oldfiles)
+    go		Opens the Oldfiles buffer (equivalent to |:Oldfiles|)
+
 Buffer-local ~
     q           Close the buffer
     <CR>        Open file at cursor
@@ -53,9 +57,9 @@ g:oldfiles_blacklist		list (default [])
 		directory (such as COMMIT_MSG files)
 >
 			let g:oldfiles_blacklist = [
-			      \ 'vim/.*doc/.\+\.txt$',
+			      \ 'vim/.*/doc/.\+\.txt$',
 			      \ '^fugitive://',
-			      \ '/\.git/.\+'
+			      \ '/\.git/.*'
 			      \ ]
 <
 		Note: The 'ignorecase' setting applies to the patterns in
