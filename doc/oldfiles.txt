@@ -1,4 +1,4 @@
-*oldfiles.txt*  Improve Vim's recent file history
+*oldfiles.txt*  Read :oldfiles into quickfix list
 
 Author:  Greg Anders <greg@gpanders.com>
 Repo:    https://github.com/gpanders/vim-oldfiles
@@ -8,19 +8,12 @@ INTRODUCTION						    *Oldfiles*
 
 Vim provides a built-in method for viewing your recent file history with the
 |:oldfiles| command. This plugin seeks to complement and improve the built-in
-command by listing recent files in a separate, navigable buffer, allowing
-filtering of files in the oldfiles list, and keeping the oldfiles list
-up-to-date during your Vim session.
-
-The Oldfiles buffer is just a plain old Vim buffer that you can |:sort|,
-filter, search, and modify as you like. Modifying this buffer will not change
-the |v:oldfiles| variable.
+command by listing recent files in the quickfix list and keeping the oldfiles
+list up-to-date during your Vim session.
 
 							   *:Oldfiles*
-:Oldfiles[!]
-			Show the oldfiles buffer, filtered according to the
-			active |oldfiles-settings|. With [!] no filtering is
-			applied.
+:Oldfiles
+			Populate the oldfiles list into the quickfix list.
 
 :Oldfiles[!] {pattern}
 			Show oldfiles matching {pattern}. With [!] invert
@@ -30,9 +23,6 @@ the |v:oldfiles| variable.
 			pattern to ignore case or |/\C| to match case.
 			'smartcase' is not used.
 
-			Note: When you supply a pattern, the filters in
-			|oldfiles-settings| are NOT applied.
-
 ==============================================================================
 MAPPINGS					   *oldfiles-mappings*
 
@@ -40,41 +30,5 @@ Global ~
     <Plug>(Oldfiles)
     go		Opens the Oldfiles buffer (equivalent to |:Oldfiles|)
 
-Buffer-local ~
-    q           Close the buffer
-    <CR>        Open file at cursor
-    R           Reload the buffer (removes any changes you've made)
-
 ==============================================================================
-SETTINGS					   *oldfiles-settings*
-
-						*g:oldfiles_blacklist*
-g:oldfiles_blacklist		list (default [])
-		A list of Vim |pattern|s to filter from the oldfiles list.
-
-		Example: The following will ignore all Vim help docs,
-		any Fugitive buffers, and any files underneath a .git
-		directory (such as COMMIT_MSG files)
->
-			let g:oldfiles_blacklist = [
-			      \ 'vim/.*/doc/.\+\.txt$',
-			      \ '^fugitive://',
-			      \ '/\.git/.*'
-			      \ ]
-<
-		Note: The 'ignorecase' setting applies to the patterns in
-		|g:oldfiles_blacklist|. To overrule this setting for a
-		particular pattern, you can use |/\c| to ignore case or |/\C|
-		to match case.
-
-					*g:oldfiles_ignore_unreadable*
-g:oldfiles_ignore_unreadable	boolean (default 1)
-		If |TRUE|, filter entries from the oldfiles list for which
-		|filereadable()| returns |FALSE|.
-
-					   *g:oldfiles_use_wildignore*
-g:oldfiles_use_wildignore	boolean (default 1)
-		If |TRUE|, files matching patterns in 'wildignore' will be
-		filtered from the oldfiles list.
-
  vim:tw=78:ts=8:noet:ft=help:norl:

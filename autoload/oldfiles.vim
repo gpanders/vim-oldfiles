@@ -1,67 +1,9 @@
-function! s:refresh()
-  let l = getline('.')
-  let c = col('.')
-  %delete_
-  put =b:oldfiles
-  1delete_
-  normal! gg0
-  call search(escape('^' . l . '$', '.~'), 'c', '$')
-  execute 'normal! ' . c . '|'
-endfunction
-
-function! s:filter(_, val)
-  let fname = expand(a:val, !g:oldfiles_use_wildignore)
-  if empty(fname)
-    return v:false
-  endif
-
-  if g:oldfiles_ignore_unreadable && !filereadable(fname)
-    return v:false
-  endif
-
-  let fname = fnamemodify(fname, ':~')
-  for filt in g:oldfiles_blacklist
-    if fname =~ filt
-      return v:false
-    endif
-  endfor
-  return v:true
-endfunction
-
 function! oldfiles#open(bang, ...)
-  let oldfiles = map(copy(v:oldfiles), { _, f -> fnamemodify(expand(f, 1), ':~') })
-  if a:0
-    let pattern = escape(a:1, '~')
-    let oldfiles = filter(oldfiles, a:bang ?
-          \ { _, val -> val !~ pattern } :
-          \ { _, val -> val =~ pattern })
-  elseif !a:bang
-    let oldfiles = filter(oldfiles, function('s:filter'))
-  endif
-
-  let bufinfo = getbufinfo('Oldfiles')
-  if !empty(bufinfo)
-    " Buffer already exists
-    let bufinfo = bufinfo[0]
-    if !bufinfo.hidden && !empty(bufinfo.windows)
-      let winnum = win_id2win(bufinfo.windows[0])
-      execute winnum . 'wincmd w'
-    else
-      execute 'botright sb ' . bufinfo.bufnr . ' | resize 10'
-    endif
-    %delete_
-  else
-    " Buffer does not exist, create it
-    botright new
-    setlocal cursorline buftype=nofile bufhidden=hide nobuflisted noswapfile
-    nnoremap <buffer> <silent> <CR> gf<C-W>o:let @# = expand('#1')<CR>
-    nnoremap <buffer> <silent> R :<C-U>call <SID>refresh()<CR>
-    nnoremap <buffer> q <C-W>q
-    autocmd WinLeave <buffer> hide
-    10wincmd _
-    execute 'silent file Oldfiles'
-  endif
-  let b:oldfiles = oldfiles
-  put =oldfiles
-  0delete_
+  let pattern = a:0 ? a:1 : ''
+  let oldfiles = filter(copy(v:oldfiles),
+        \ {_, file -> filereadable(file) && (a:bang ? file !~# pattern : file =~# pattern)})
+  let items = map(oldfiles, {i, file -> {'filename': file, 'text': i+1}})
+  call setqflist(items)
+  copen
+  let w:quickfix_title = ':Oldfiles'
 endfunction

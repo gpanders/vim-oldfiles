@@ -1,5 +1,5 @@
 " oldfiles.vim
-" Populate the output of :oldfiles into a separate buffer
+" Populate the output of :oldfiles into the quickfix list
 " Author: Greg Anders <greg@gpanders.com>
 " License: Same as vim itself
 
@@ -8,27 +8,30 @@ if exists('g:loaded_oldfiles')
 endif
 let g:loaded_oldfiles = 1
 
-if !exists('g:oldfiles_blacklist')
-  let g:oldfiles_blacklist = []
-endif
-
-let g:oldfiles_ignore_unreadable = get(g:, 'oldfiles_ignore_unreadable', 1)
-let g:oldfiles_use_wildignore = get(g:, 'oldfiles_use_wildignore', 1)
-
-function! s:update()
-  if &buftype !=# 'nofile'
-    let fname = expand('%:p:~')
-    let idx = index(v:oldfiles, fname)
-    if idx > -1
-      call remove(v:oldfiles, idx)
-    endif
-    call insert(v:oldfiles, fname)
+function! s:add()
+  " Add file to oldfiles when opened
+  let fname = expand("<afile>:p")
+  if empty(fname) || !filereadable(fname)
+    return
   endif
+
+  let v:oldfiles = [fname] + filter(v:oldfiles, {_, f -> f !=# fname})
+endfunction
+
+function! s:remove()
+  " Remove file from oldfiles if it is no longer valid
+  let fname = expand("<afile>:p")
+  if empty(fname) || filereadable(fname)
+    return
+  endif
+
+  call filter(v:oldfiles, {_, f -> f !=# fname})
 endfunction
 
 augroup oldfiles.vim
   autocmd!
-  autocmd BufRead * call s:update()
+  autocmd BufWinEnter * call s:add()
+  autocmd BufDelete * call s:remove()
 augroup END
 
 nnoremap <silent> <Plug>(Oldfiles) :<C-U>call oldfiles#open(0)<CR>
