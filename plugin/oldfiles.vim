@@ -11,7 +11,7 @@ let g:loaded_oldfiles = 1
 function! s:add()
   " Add file to oldfiles when opened
   let fname = expand("<afile>:p")
-  if empty(fname) || !filereadable(fname)
+  if empty(fname) || !filereadable(fname) || !&buflisted
     return
   endif
 
