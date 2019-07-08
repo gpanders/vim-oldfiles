@@ -37,6 +37,6 @@ augroup END
 nnoremap <silent> <Plug>(Oldfiles) :<C-U>call oldfiles#open(0)<CR>
 command! -nargs=? -bang Oldfiles call oldfiles#open(<bang>0, <f-args>)
 
-if !mapcheck("g<C-O>", "n")
-  nmap g<C-O> <Plug>(Oldfiles)
+if !mapcheck("g<C-^>", "n")
+  nmap g<C-^> <Plug>(Oldfiles)
 endif
