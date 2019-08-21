@@ -28,7 +28,7 @@ MAPPINGS					   *oldfiles-mappings*
 
 Global ~
     <Plug>(Oldfiles)
-    go		Opens the Oldfiles buffer (equivalent to |:Oldfiles|)
+    g<C-^>		Equivalent to |:Oldfiles|
 
 ==============================================================================
  vim:tw=78:ts=8:noet:ft=help:norl:
