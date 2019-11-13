@@ -14,7 +14,7 @@ function! oldfiles#open(bang, ...)
   let pat = a:0 ? a:1 : ''
   let oldfiles = filter(map(copy(v:oldfiles),
         \ 'simplify(expand(v:val))'), 's:filter(v:val, a:bang, pat)')
-  let items = map(oldfiles, {i, file -> {'filename': file, 'text': i+1}})
+  let items = map(oldfiles, {i, file -> {'filename': file, 'text': i+1, 'valid': 1}})
   call setqflist(items)
   copen
   let w:quickfix_title = ':Oldfiles'
