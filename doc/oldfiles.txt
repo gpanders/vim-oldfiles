@@ -26,7 +26,6 @@ list up-to-date during your Vim session.
 ==============================================================================
 MAPPINGS					   *oldfiles-mappings*
 
-Global ~
     <Plug>(Oldfiles)
     g<C-^>		Equivalent to |:Oldfiles|
 
