@@ -1,8 +1,8 @@
-# oldfiles.vim
+# vim-oldfiles
 
 Improve Vim's native recent file history.
 
-## Introduction
+## Motivation
 
 Vim natively keeps a list of your file history in the `v:oldfiles` variable
 which you can see with the `:oldfiles` command or, even better, with `:browse
@@ -22,16 +22,24 @@ a list of your recently visited files in the quickfix list. You can search,
 sort, filter, and modify this buffer however you want, and simply press Enter
 on a filename to go to that file.
 
-Most importantly, oldfiles.vim keeps the `v:oldfiles` variable up to date as
+Most importantly, vim-oldfiles keeps the `v:oldfiles` variable up to date as
 you use Vim, so when you open a new buffer you will see it at the top of the
 `:Oldfiles` list.
 
 ## Usage
 
-Use `g<C-^>` in Normal mode or `:Oldfiles` to view your recent files in the
-quickfix list. You can also use `:Oldfiles {pattern}` to only show files
-matching that pattern, or `:Oldfiles! {pattern}` to only show files that do not
-match that pattern.
+Use `:Oldfiles` to view your recent files in the quickfix list. You can also
+use `:Oldfiles {pattern}` to only show files matching that pattern, or
+`:Oldfiles! {pattern}` to only show files that do not match that pattern.
+
+This plugin provides a `<Plug>(Oldfiles)` mapping which you can use to map the
+`:Oldfiles` command like so
+
+```vim
+nmap <lhs> <Plug>(Oldfiles)
+```
+
+By default, this is mapped to `g<C-^>`.
 
 See `:h Oldfiles` for more information.
 
