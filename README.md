@@ -66,3 +66,11 @@ git clone https://github.com/gpanders/vim-oldfiles.git
 ```vim
 Plug 'gpanders/vim-oldfiles'
 ```
+
+## Contributing
+
+Please feel free to contribute changes or bug fixes! You can [send patches][]
+to <git@gpanders.com> or submit a pull request on [Github][].
+
+[send patches]: https://git-send-email.io/
+[Github]: https://github.com/gpanders/vim-oldfiles
