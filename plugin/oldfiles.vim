@@ -8,30 +8,10 @@ if exists('g:loaded_oldfiles')
 endif
 let g:loaded_oldfiles = 1
 
-function! s:add()
-  " Add file to oldfiles when opened
-  let fname = expand("<afile>:p")
-  if empty(fname) || !filereadable(fname) || !&buflisted
-    return
-  endif
-
-  let v:oldfiles = [fname] + filter(v:oldfiles, {_, f -> f !=# fname})
-endfunction
-
-function! s:remove()
-  " Remove file from oldfiles if it is no longer valid
-  let fname = expand("<afile>:p")
-  if empty(fname) || filereadable(fname)
-    return
-  endif
-
-  call filter(v:oldfiles, {_, f -> f !=# fname})
-endfunction
-
 augroup oldfiles.vim
   autocmd!
-  autocmd BufWinEnter * call s:add()
-  autocmd BufDelete * call s:remove()
+  autocmd BufWinEnter * call oldfiles#add()
+  autocmd BufDelete * call oldfiles#remove()
 augroup END
 
 nnoremap <silent> <Plug>(Oldfiles) :<C-U>call oldfiles#open(0)<CR>
