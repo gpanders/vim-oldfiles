@@ -6,24 +6,44 @@ Improve Vim's native recent file history.
 
 Vim natively keeps a list of your file history in the `v:oldfiles` variable
 which you can see with the `:oldfiles` command or, even better, with `:browse
-oldfiles`. Unfortunately, `:oldfiles` has a few drawbacks:
+oldfiles`. Unfortunately, `:oldfiles` has two significant drawbacks:
 
 1. The output of the command takes up the entire screen and uses Vim's
    inelegant "more prompt".
-2. The output of `:oldfiles` cannot be filtered or in any other way modified
-3. The list of recent files is not updated as you use Vim, and is only
+2. The list of recent files is not updated as you use Vim, and is only
    re-written when you close Vim. One can get around this with the use of the
    `:wviminfo` and `:rviminfo` commands, but this is cumbersome and not very
    intuitive.
 
-This plugin seeks to utilize Vim's native capability but make it slightly
-better.  The command `:Oldfiles` uses `v:oldfiles` under the hood, but presents
-a list of your recently visited files in the quickfix list. You can search,
-sort, filter, and modify this buffer however you want, and simply press Enter
-on a filename to go to that file.
+This plugin enhances Vim's native capability by addressing these two
+problems. The command `:Oldfiles` uses `:oldfiles` under the hood, but presents
+a list of your recently visited files in the quickfix list. Once in the
+quickfix list, you can use all of the standard tools to navigate and search
+through your list of recent files (e.g. `:clist`, `:cc`, `:Cfilter`, and so
+on). **vim-oldfiles** will also automatically filter non-existent and
+unreadable files from the list, something vanilla `:oldfiles`
+does not do.
 
-Most importantly, vim-oldfiles keeps the `v:oldfiles` variable up to date as
-you use Vim, so when you open a new buffer you will see it at the top of the
+Further, while you can natively filter the output of `:oldfiles` using the
+`:filter` command, this is a bit clunky. Instead, `:Oldfiles` (capital `O`)
+lets you pass a search pattern as an optional second argument to allow easy
+filtering.
+
+Before:
+```vim
+:filter /pattern/ oldfiles
+```
+
+With **vim-oldfiles**:
+```vim
+:Oldfiles /pattern/
+```
+
+If you don't have any other conflicting user commands, this can be shortened
+even further to simply `:Old` or even `:Ol`.
+
+Most importantly, **vim-oldfiles** keeps the `v:oldfiles` variable up to date
+as you use Vim, so when you open a new buffer you will see it at the top of the
 `:Oldfiles` list.
 
 ## Usage
