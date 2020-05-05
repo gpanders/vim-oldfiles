@@ -14,9 +14,9 @@ augroup oldfiles.vim
   autocmd BufDelete * call oldfiles#remove()
 augroup END
 
-nnoremap <silent> <Plug>(Oldfiles) :<C-U>call oldfiles#open(0)<CR>
+nnoremap <silent> <Plug>(Oldfiles) :<C-U>call oldfiles#open(0, '')<CR>
 command! -nargs=? -bang Oldfiles call oldfiles#open(<bang>0, <q-mods>, <f-args>)
 
-if !hasmapto('<Plug>(Oldfiles)', 'n') && mapcheck('g<C-^>', 'n') == ''
+if !hasmapto('<Plug>(Oldfiles)', 'n') && mapcheck('g<C-^>', 'n') ==# ''
   nmap g<C-^> <Plug>(Oldfiles)
 endif
