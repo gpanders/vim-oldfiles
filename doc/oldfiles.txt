@@ -13,7 +13,11 @@ list up-to-date during your Vim session.
 
 							   *:Oldfiles*
 :Oldfiles
-			Populate the oldfiles list into the quickfix list.
+			Populate the oldfiles list into the quickfix list. The
+			number that appears next to the filename in the
+			quickfix list is the index of that file in the
+			original |:oldfiles| command, allowing you to open the
+			given file with |c_#<|.
 
 :Oldfiles[!] {pattern}
 			Show oldfiles matching {pattern}. With [!] invert
