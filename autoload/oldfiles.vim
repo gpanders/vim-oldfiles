@@ -1,4 +1,4 @@
-function! oldfiles#add()
+function! oldfiles#add() abort
   " Add file to oldfiles when opened
   let fname = expand('<afile>:p')
   if empty(fname) || !filereadable(fname) || !&buflisted
@@ -8,7 +8,7 @@ function! oldfiles#add()
   let v:oldfiles = [fname] + filter(v:oldfiles, {_, f -> f !=# fname})
 endfunction
 
-function! oldfiles#remove()
+function! oldfiles#remove() abort
   " Remove file from oldfiles if it is no longer valid
   let fname = expand('<afile>:p')
   if empty(fname) || filereadable(fname)
@@ -18,7 +18,7 @@ function! oldfiles#remove()
   call filter(v:oldfiles, {_, f -> f !=# fname})
 endfunction
 
-function! s:filter(val)
+function! s:filter(val) abort
   if !filereadable(a:val)
     return 0
   endif
