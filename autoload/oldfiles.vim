@@ -1,3 +1,21 @@
+function! s:filter(val) abort
+  if !filereadable(a:val)
+    return 0
+  endif
+
+  if !exists('g:oldfiles_blacklist') || type(g:oldfiles_blacklist) != type([])
+    return 1
+  endif
+
+  for pat in g:oldfiles_blacklist
+    if a:val =~# pat
+      return 0
+    endif
+  endfor
+
+  return 1
+endfunction
+
 function! oldfiles#add() abort
   " Add file to oldfiles when opened
   let fname = expand('<afile>:p')
@@ -16,24 +34,6 @@ function! oldfiles#remove() abort
   endif
 
   call filter(v:oldfiles, {_, f -> f !=# fname})
-endfunction
-
-function! s:filter(val) abort
-  if !filereadable(a:val)
-    return 0
-  endif
-
-  if !exists('g:oldfiles_blacklist') || type(g:oldfiles_blacklist) != type([])
-    return 1
-  endif
-
-  for pat in g:oldfiles_blacklist
-    if a:val =~# pat
-      return 0
-    endif
-  endfor
-
-  return 1
 endfunction
 
 function! oldfiles#open(bang, mods, ...) abort
