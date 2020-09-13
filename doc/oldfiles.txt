@@ -1,6 +1,6 @@
 *oldfiles.txt*  Read :oldfiles into quickfix list
 
-Author:  Greg Anders <greg@gpanders.com>
+Author:  Gregory Anders <pub@gpanders.com>
 Repo:    https://github.com/gpanders/vim-oldfiles
 License: Same terms as Vim itself (see |license|)
 
