@@ -98,11 +98,23 @@ FAQ
 **Q:** How can I make the oldfiles list automatically close after I select an
 entry?
 
-**A:** You can use regular old autocmds to do this. Insert the following
-snippet into your `.vimrc` or another appropriate location:
+**A:** You can use regular old autocmds to do this. Add the following
+snippet to `~/.vim/after/ftplugin/qf.vim`:
 
 ```vim
-autocmd FileType qf if w:quickfix_title =~# 'Oldfiles' | exec 'autocmd WinLeave <buffer> cclose' | endif
+augroup oldfiles
+    autocmd!
+    autocmd WinLeave <buffer> if getqflist({'title': 0}).title =~# 'Oldfiles' | cclose | endif
+augroup END
+```
+
+or if you prefer to keep everything in your `~/.vim/vimrc` file, use:
+
+```vim
+augroup oldfiles
+    autocmd!
+    autocmd FileType qf autocmd WinLeave <buffer> if getqflist({'title': 0}).title =~# 'Oldfiles' | cclose | endif
+augroup END
 ```
 
 See [here][explanation] for more information.
