@@ -41,6 +41,9 @@ function! oldfiles#open(bang, mods, ...) abort
   let cmd = 'filter' . (a:bang ? '! ' : ' ') . pat . ' oldfiles'
   let oldfiles = split(execute(cmd), '\n')
   call filter(oldfiles, 's:filter(split(v:val, ''^\d\+\zs:\s\+'')[1])')
+
+  doautocmd QuickFixCmdPre Oldfiles
   call setqflist([], ' ', {'lines': oldfiles, 'efm': '%m: %f', 'title': ':Oldfiles'})
+  doautocmd QuickFixCmdPost Oldfiles
   exe a:mods 'copen'
 endfunction
