@@ -40,10 +40,7 @@ function! oldfiles#open(bang, mods, ...) abort
   let pat = a:0 ? a:1 : '//'
   let cmd = 'filter' . (a:bang ? '! ' : ' ') . pat . ' oldfiles'
   let oldfiles = split(execute(cmd), '\n')
-  call map(oldfiles, 'split(v:val, ''^\d\+\zs:\s\+'')')
-  call map(oldfiles, {_, item -> {'filename': fnamemodify(item[1], ':p'), 'text': item[0], 'valid': 1}})
-  call filter(oldfiles, {_, item -> s:filter(item.filename)})
-  call setqflist(oldfiles)
+  call filter(oldfiles, 's:filter(split(v:val, ''^\d\+\zs:\s\+'')[1])')
+  call setqflist([], ' ', {'lines': oldfiles, 'efm': '%m: %f', 'title': ':Oldfiles'})
   exe a:mods 'copen'
-  let w:quickfix_title = ':Oldfiles'
 endfunction
