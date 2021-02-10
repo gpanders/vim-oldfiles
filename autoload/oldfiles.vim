@@ -37,12 +37,11 @@ function! oldfiles#remove() abort
 endfunction
 
 function! oldfiles#open(bang, mods, ...) abort
+  doautocmd QuickFixCmdPre Oldfiles
   let pat = a:0 ? a:1 : '//'
   let cmd = 'filter' . (a:bang ? '! ' : ' ') . pat . ' oldfiles'
   let oldfiles = split(execute(cmd), '\n')
   call filter(oldfiles, 's:filter(split(v:val, ''^\d\+\zs:\s\+'')[1])')
-
-  doautocmd QuickFixCmdPre Oldfiles
   call setqflist([], ' ', {'lines': oldfiles, 'efm': '%m: %f', 'title': ':Oldfiles'})
   doautocmd QuickFixCmdPost Oldfiles
   exe a:mods 'copen'
