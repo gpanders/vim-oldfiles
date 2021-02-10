@@ -91,3 +91,20 @@ git clone https://github.com/gpanders/vim-oldfiles.git
 ```vim
 Plug 'gpanders/vim-oldfiles'
 ```
+
+FAQ
+---
+
+**Q:** How can I make the oldfiles list automatically close after I select an
+entry?
+
+**A:** You can use regular old autocmds to do this. Insert the following
+snippet into your `.vimrc` or another appropriate location:
+
+```vim
+autocmd FileType qf if w:quickfix_title =~# 'Oldfiles' | exec 'autocmd WinLeave <buffer> cclose' | endif
+```
+
+See [here][explanation] for more information.
+
+[explanation]: https://github.com/gpanders/vim-oldfiles/issues/2#issuecomment-776442884
