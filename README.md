@@ -98,14 +98,12 @@ FAQ
 **Q:** How can I make the oldfiles list automatically close after I select an
 entry?
 
-**A:** You can use regular old autocmds to do this. Add the following
-snippet to `~/.vim/after/ftplugin/qf.vim`:
+**A:** Add the following snippet to `~/.vim/after/ftplugin/qf.vim`:
 
 ```vim
-augroup oldfiles
-    autocmd!
-    autocmd WinLeave <buffer> if getqflist({'title': 0}).title =~# 'Oldfiles' | cclose | endif
-augroup END
+if w:quickfix_title =~# 'Oldfiles'
+    nnoremap <buffer> <CR> <CR>:cclose<CR>
+endif
 ```
 
 or if you prefer to keep everything in your `~/.vim/vimrc` file, use:
@@ -113,7 +111,7 @@ or if you prefer to keep everything in your `~/.vim/vimrc` file, use:
 ```vim
 augroup oldfiles
     autocmd!
-    autocmd FileType qf autocmd WinLeave <buffer> if getqflist({'title': 0}).title =~# 'Oldfiles' | cclose | endif
+    autocmd FileType qf if w:quickfix_title =~# 'Oldfiles' | nnoremap <buffer> <CR> <CR>:cclose<CR> | endif
 augroup END
 ```
 
