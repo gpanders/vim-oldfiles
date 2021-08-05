@@ -101,7 +101,7 @@ entry?
 **A:** Add the following snippet to `~/.vim/after/ftplugin/qf.vim`:
 
 ```vim
-if w:quickfix_title =~# 'Oldfiles'
+if get(w:, 'quickfix_title') =~# 'Oldfiles'
     nnoremap <buffer> <CR> <CR>:cclose<CR>
 endif
 ```
@@ -111,7 +111,7 @@ or if you prefer to keep everything in your `~/.vim/vimrc` file, use:
 ```vim
 augroup oldfiles
     autocmd!
-    autocmd FileType qf if w:quickfix_title =~# 'Oldfiles' | nnoremap <buffer> <CR> <CR>:cclose<CR> | endif
+    autocmd FileType qf if get(w:, 'quickfix_title') =~# 'Oldfiles' | nnoremap <buffer> <CR> <CR>:cclose<CR> | endif
 augroup END
 ```
 
