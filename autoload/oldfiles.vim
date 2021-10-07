@@ -16,6 +16,17 @@ function! s:filter(val) abort
   return 1
 endfunction
 
+function! oldfiles#textfunc(d) abort
+  let items = getqflist({'id': a:d.id, 'items': v:true}).items
+  let l = []
+  for i in range(a:d.start_idx - 1, a:d.end_idx - 1)
+    let item = items[i]
+    let fname = fnamemodify(bufname(item.bufnr), ':p')
+    call add(l, item.nr . ': ' . fname)
+  endfor
+  return l
+endfunction
+
 function! oldfiles#add() abort
   " Add file to oldfiles when opened
   let fname = expand('<afile>:p')
@@ -42,7 +53,7 @@ function! oldfiles#open(bang, mods, ...) abort
   let cmd = 'filter' . (a:bang ? '! ' : ' ') . pat . ' oldfiles'
   let oldfiles = split(execute(cmd), '\n')
   call filter(oldfiles, 's:filter(expand(split(v:val, ''^\d\+\zs:\s\+'')[1]))')
-  call setqflist([], ' ', {'lines': oldfiles, 'efm': '%m: %f', 'title': ':Oldfiles'})
+  call setqflist([], ' ', {'lines': oldfiles, 'efm': '%n: %f', 'title': ':Oldfiles', 'quickfixtextfunc': 'oldfiles#textfunc'})
   silent doautocmd QuickFixCmdPost Oldfiles
   exe a:mods 'copen'
 endfunction
